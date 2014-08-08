@@ -1,0 +1,24 @@
+{
+  "name": "tradedoubler-lookup",
+  "version": "0.0.0",
+  "description": "A simple wrapper around the tradedoubler products api",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:adamvr/node-tradedoubler-lookup.git"
+  },
+  "keywords": [
+    "tradedoubler",
+    "ecommerce",
+    "api"
+  ],
+  "author": "Adam Rudd",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/adamvr/node-tradedoubler-lookup/issues"
+  },
+  "homepage": "https://github.com/adamvr/node-tradedoubler-lookup"
+}
