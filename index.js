@@ -17,10 +17,15 @@ Tradedoubler.prototype.id = function (id) {
   return this._id = id, this;
 };
 
+Tradedoubler.prototype.feed = function (feed) {
+  return this._feed = feed, this;
+};
+
 Tradedoubler.prototype.done = function (cb) {
   return request
     .get(endpoint)
     .query({token: this._id})
+    .query({fid: this._feed})
     .query({q: this._keywords})
     .end(function (err, res) {
       // HTTP errors
