@@ -11,20 +11,40 @@ var opts = nomnom
   .nocolors()
   .option('id', {
     abbr: 'i',
-    required: true
+    required: true,
+    help: 'Tradedoubler api token'
   })
   .option('keywords', {
     abbr: 'k',
-    required: 'true'
+    required: 'true',
+    help: 'Keywords to query with'
   })
   .option('feed', {
     abbr: 'f',
+    help: 'Feed ids'
+  })
+  .option('one', {
+    abbr: '1',
+    help: 'Limit to one result',
+    flag: true,
+    default: false
+  })
+  .option('limit', {
+    abbr: 'l',
+    help: 'Limit results'
+  })
+  .option('page', {
+    abbr: 'p',
+    help: 'Results page'
   })
   .parse();
 
 tradedoubler({keywords: opts.keywords})
   .id(opts.id)
   .feed(opts.feed)
+  .one(opts.one)
+  .limit(opts.limit)
+  .page(opts.page)
   .done(function (err, res) {
     if (err) throw err;
     console.log(JSON.stringify(res));
