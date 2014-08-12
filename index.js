@@ -37,15 +37,17 @@ Tradedoubler.prototype.page = function (page) {
 
 Tradedoubler.prototype.done = function (cb) {
   var one = this._one
-    , limit = this._limit;
+    , limit = one ? 1 : this._limit
+    , page = this._page;
 
   return request
     .get(endpoint)
     .query({token: this._id})
     .query({fid: this._feed})
     .query({q: this._keywords})
-    .query({pageSize: this._one ? 1 : this._limit})
-    .query({page: this._page})
+    .query({pageSize: limit})
+    .query({limit: limit * page + limit})
+    .query({page: page})
     .end(function (err, res) {
       // HTTP errors
       if (err) return cb(err);
