@@ -21,12 +21,31 @@ Tradedoubler.prototype.feed = function (feed) {
   return this._feed = feed, this;
 };
 
+Tradedoubler.prototype.limit = function (limit) {
+  if (!limit) return this;
+  return this._limit = limit, this;
+};
+
+Tradedoubler.prototype.one = function (one) {
+  one = ('undefined' === typeof one) ? true : !!one;
+  return this._one = one, this;
+};
+
+Tradedoubler.prototype.page = function (page) {
+  return this._page = page, this;
+};
+
 Tradedoubler.prototype.done = function (cb) {
+  var one = this._one
+    , limit = this._limit;
+
   return request
     .get(endpoint)
     .query({token: this._id})
     .query({fid: this._feed})
     .query({q: this._keywords})
+    .query({pageSize: this._one ? 1 : this._limit})
+    .query({page: this._page})
     .end(function (err, res) {
       // HTTP errors
       if (err) return cb(err);
@@ -39,6 +58,13 @@ Tradedoubler.prototype.done = function (cb) {
 
       // Format results
       var result = format(res.body.products);
+
+      // Limit
+      if (one) {
+        result = _.first(result) || null;
+      } else if (limit) {
+        result = _.first(result, limit);
+      }
 
       return cb(null, result);
     });
