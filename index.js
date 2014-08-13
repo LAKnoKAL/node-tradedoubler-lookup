@@ -35,19 +35,41 @@ Tradedoubler.prototype.page = function (page) {
   return this._page = page, this;
 };
 
-Tradedoubler.prototype.done = function (cb) {
+Tradedoubler.prototype.matrix = function () {
   var one = this._one
     , limit = one ? 1 : this._limit
     , page = this._page;
 
-  return request
-    .get(endpoint)
+  return _
+    .chain({})
+    .extend({fid: this._feed})
+    .extend({q: this._keywords})
+    .extend({pageSize: limit})
+    .extend({limit: limit * page + limit})
+    .extend({page: page})
+    .value();
+};
+
+Tradedoubler.prototype.params = function () {
+  var matrix = this.matrix();
+
+  return _
+    .pairs(matrix)
+    .map(function (o) {
+      return o[0] + '=' + o[1];
+    })
+    .join(';');
+};
+
+Tradedoubler.prototype.done = function (cb) {
+  var one = this._one
+    , limit = one ? 1 : this._limit
+    , page = this._page
+    , params = this.params();
+
+  var r = request
+    .get(endpoint + (params.length ? ';' + params : ''))
     .query({token: this._id})
-    .query({fid: this._feed})
-    .query({q: this._keywords})
-    .query({pageSize: limit})
-    .query({limit: limit * page + limit})
-    .query({page: page})
     .end(function (err, res) {
       // HTTP errors
       if (err) return cb(err);
