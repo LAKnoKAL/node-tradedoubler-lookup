@@ -10,6 +10,9 @@
     "type": "git",
     "url": "git@github.com:adamvr/node-tradedoubler-lookup.git"
   },
+  "bin": {
+    "tradedoubler-lookup": "./bin.js"
+  },
   "keywords": [
     "tradedoubler",
     "ecommerce",
