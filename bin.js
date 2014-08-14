@@ -37,6 +37,10 @@ var opts = nomnom
     abbr: 'p',
     help: 'Results page'
   })
+  .option('price', {
+    abbr: 'c',
+    help: 'Price range'
+  })
   .parse();
 
 tradedoubler({keywords: opts.keywords})
@@ -45,6 +49,7 @@ tradedoubler({keywords: opts.keywords})
   .one(opts.one)
   .limit(opts.limit)
   .page(opts.page)
+  .price(opts.price)
   .done(function (err, res) {
     if (err) throw err;
     console.log(JSON.stringify(res));
