@@ -149,3 +149,20 @@ var formatPrices = function (prices) {
     currency: first.price.currency
   }
 };
+
+_.mixin({
+  cextend: function (obj) {
+    var others = _.toArray(arguments).slice(1);
+
+    _.each(others, function (o) {
+      if (o) {
+        for (var k in o) {
+          if ('undefined' === typeof o[k]) continue;
+          obj[k] = o[k];
+        }
+      }
+    });
+
+    return obj;
+  }
+});
