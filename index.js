@@ -75,7 +75,6 @@ Tradedoubler.prototype.params = function () {
 Tradedoubler.prototype.done = function (cb) {
   var one = this._one
     , limit = one ? 1 : this._limit
-    , page = this._page
     , params = this.params();
 
   var r = request
