@@ -51,11 +51,13 @@ Tradedoubler.prototype.matrix = function () {
 
   return _
     .chain({})
-    .extend({fid: this._feed})
-    .extend({q: this._keywords})
-    .extend({pageSize: limit})
-    .extend({limit: limit * page + limit})
-    .extend({page: page})
+    .cextend({fid: this._feed})
+    .cextend({q: this._keywords})
+    .cextend({pageSize: limit})
+    .cextend({limit: limit * page + limit})
+    .cextend({page: page})
+    .cextend({minPrice: this._minPrice})
+    .cextend({maxPrice: this._maxPrice})
     .value();
 };
 
