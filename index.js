@@ -77,7 +77,7 @@ Tradedoubler.prototype.done = function (cb) {
     , limit = one ? 1 : this._limit
     , params = this.params();
 
-  var r = request
+  return request
     .get(endpoint + (params.length ? ';' + params : ''))
     .query({token: this._id})
     .end(function (err, res) {
