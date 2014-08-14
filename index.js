@@ -35,6 +35,15 @@ Tradedoubler.prototype.page = function (page) {
   return this._page = page, this;
 };
 
+Tradedoubler.prototype.price = function (price) {
+  price = ('string' === typeof price) ? price.split('..') : price;
+
+  if (price[0]) this._minPrice = price[0];
+  if (price[1]) this._maxPrice = price[1];
+
+  return this;
+};
+
 Tradedoubler.prototype.matrix = function () {
   var one = this._one
     , limit = one ? 1 : this._limit
