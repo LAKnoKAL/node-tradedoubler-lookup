@@ -158,7 +158,7 @@ _.mixin({
     _.each(others, function (o) {
       if (o) {
         for (var k in o) {
-          if ('undefined' === typeof o[k]) continue;
+          if ('undefined' === typeof o[k] || null === o[k]) continue;
           obj[k] = o[k];
         }
       }
