@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:adamvr/node-tradedoubler-lookup.git"
+    "url": "git@github.com:urgeiolabs/node-tradedoubler-lookup.git"
   },
   "bin": {
     "tradedoubler-lookup": "./bin.js"
@@ -21,9 +21,9 @@
   "author": "Adam Rudd",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/adamvr/node-tradedoubler-lookup/issues"
+    "url": "https://github.com/urgeiolabs/node-tradedoubler-lookup/issues"
   },
-  "homepage": "https://github.com/adamvr/node-tradedoubler-lookup",
+  "homepage": "https://github.com/urgeiolabs/node-tradedoubler-lookup",
   "dependencies": {
     "nomnom": "^1.8.0",
     "superagent": "^0.18.2",
