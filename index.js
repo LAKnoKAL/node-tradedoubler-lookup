@@ -44,6 +44,11 @@ Tradedoubler.prototype.price = function (price) {
   return this;
 };
 
+Tradedoubler.prototype.exactMatch = function (exactMatch) {
+  if (!exactMatch) return this;
+  return this._exactMatch = exactMatch, this;
+};
+
 Tradedoubler.prototype.matrix = function () {
   var one = this._one
     , limit = one ? 1 : this._limit
@@ -53,7 +58,7 @@ Tradedoubler.prototype.matrix = function () {
     .chain({})
     .cextend({fid: this._feed})
     .cextend({q: this._keywords})
-    .cextend({pageSize: limit})
+    //.cextend({pageSize: limit})
     .cextend({limit: limit * page + limit})
     .cextend({page: page})
     .cextend({minPrice: this._minPrice})
@@ -75,7 +80,9 @@ Tradedoubler.prototype.params = function () {
 Tradedoubler.prototype.done = function (cb) {
   var one = this._one
     , limit = one ? 1 : this._limit
-    , params = this.params();
+    , params = this.params()
+    , keywords = this._keywords.toLowerCase()
+    , exactMatch = this._exactMatch;
 
   return request
     .get(endpoint + (params.length ? ';' + params : ''))
@@ -95,7 +102,25 @@ Tradedoubler.prototype.done = function (cb) {
 
       // Limit
       if (one) {
-        result = _.first(result) || null;
+        if (exactMatch) {
+          var a;
+          var qw = keywords.split(' ');
+          var matches = false;
+          result.some(function(p) {
+            matches = true;
+            qw.forEach(function(w) {
+              if (p.name.toLowerCase().indexOf(w) === -1)
+                matches = false;
+            });
+            if (matches) {
+              a = p;
+              return true;
+            }
+          });
+          result = a || null;
+        } else {
+          result = _.first(result) || null;
+        }
       } else if (limit) {
         result = _.first(result, limit);
       }
